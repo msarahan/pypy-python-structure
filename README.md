@@ -1,14 +1,14 @@
 # pypy-python-structure
 Proposal/demo of how to incorporate pypy and python in existing conda-land
 
-##Problem
+## Problem
 Pypy is compatible with many pure python packages, so it is desirable to create a 
 pypy package that can somehow be used with those packages.  One way to achieve this is to 
 name the pypy package "python" and add a build string to differentiate from the python 
 packages that are implicitly CPython.  Unfortunately, this precludes many mutex schemes 
 and is otherwise unwieldy.
 
-##Proposal
+## Proposal
 1. the "python" package should become a metapackage.  It will be versioned as
 it always has been.  
 2. The new python metapackage will have a dependency on either cpython (which current "python" 
@@ -21,7 +21,7 @@ attached to the python-X.Y-pypy_0 metapackage, so that cpython remains the defau
 This assumes that PyPy version numbers mean equivalent things to cpython version numbers.
 If that doesn't hold, then the metapackage versions are meaningless and this scheme falls apart.
 
-##Implementation overview
+## Implementation overview
 1. rename the existing "python-feedstock" recipe to "cpython-feedstock" for all 
 currently maintained branches.  Rename the package that they produce to cpython.  Note 
 that no recipes should directly depend on cpython.  If you think a longer, less
@@ -35,7 +35,7 @@ at runtime.  There's a python-devel metapackage that should be close to what you
 version.  It may be necessary to overhaul conda-build somewhat so that python-devel
 uses the python version loops appropriately. 
 
-##Usage examples at runtime
+## Usage examples at runtime
 * using cpython will not change.  The new metapackages will fold in with the old "fat" 
 packages, and aside from people noticing that the "python" package suddenly got really
 small, nothing will change.  There will now be one additional package installed - the
@@ -44,7 +44,7 @@ cpython implementation package (whatever it is called).
 this should be thought of as a strictly run-time choice.  If people hard-code python
 implementations in their recipes, they will obviously not span across the languages.  
 
-##Related schemes that may be helpful examples
+## Related schemes that may be helpful examples
 * https://github.com/anacondarecipes/tensorflow_recipes - the tensorflow folder is the 
 metpackage that unifies the CPU and GPU implementations
 * https://github.com/conda-forge/mpi-feedstock/blob/master/recipe/meta.yaml - the mpi
