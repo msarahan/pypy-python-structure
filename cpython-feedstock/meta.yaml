@@ -1,0 +1,16 @@
+package:
+  name: python-with-meta
+  version: 3.7
+
+outputs:
+  # normal python build process for this output
+  - name: python
+    build: blah
+    requirements:
+      run:
+        - _python_impl 1.0 cpython
+  # mutex package to keep only one python implementation in a given env
+  - name: _python_impl
+    version: 1.0
+    build:
+      string: cpython

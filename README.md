@@ -16,7 +16,7 @@ recipe must be renamed to) or pypy.  This metapackage provides the abstraction o
 python implementations.
 3. Default preference for implementations will be handled using "track_features" on the 
 non-default metapackage.  This de-prioritizes it to the solver.  Here, this would be 
-attached to the python-X.Y-pypy_0 metapackage, so that cpython remains the default.
+attached to the pypy metapackage, so that cpython remains the default.
 
 This assumes that PyPy version numbers mean equivalent things to cpython version numbers.
 If that doesn't hold, then the metapackage versions are meaningless and this scheme falls apart.
