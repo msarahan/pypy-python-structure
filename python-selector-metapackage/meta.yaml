@@ -7,8 +7,6 @@ outputs:
     version: {{ version }}
     build:
       string: {{ impl }}
-      track_features:
-        - python_pypy_impl
     requirements:
       run:
         - cpython {{ version }}  # [impl == "cpython"]
@@ -19,8 +17,6 @@ outputs:
     version: {{ version }}
     build:
       string: {{ impl }}
-      track_features:
-        - python_pypy_devel_impl
       run_exports:
         - python {{ version }} {{ impl }}
     requirements:

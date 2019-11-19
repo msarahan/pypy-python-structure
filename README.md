@@ -34,11 +34,10 @@ at runtime.  There's a python-devel metapackage that should be close to what you
 5. One fly in this ointment is the special handling that conda-build does for python
 version.  It may be necessary to overhaul conda-build somewhat so that python-devel
 uses the python version loops appropriately. 
-6. Another fly: as implemented currently in this example, the cpython and pypy packages do not share a 
-mutex. If they install cpython and pypy directly, there is nothing here that
-prevents both from being installed into an environment at once.  That mutex really needs to be there.  It would be similar to the blas metapackages for 
-defaults, which are created in the recipe for a given variant (i.e. blas-1.0-mkl is 
-created in the mkl recipe, https://github.com/AnacondaRecipes/intel_repack-feedstock/blob/master/recipe/meta.yaml#L112-L116, blas-1.0-openblas is created in the openblas recipe, https://github.com/AnacondaRecipes/openblas-feedstock/blob/master/recipe/meta.yaml#L129-L139.)  The analogous locations for this mutex metapackage would be in the cpython and pypy recipes.  Note that it need not reflect the version - in fact, it should have only one package available - all cpython packages share one mutex package, `_python_impl-1.0-cpython`, and all pypy packages share a different one: `_python_impl-1.0-pypy`.  The pypy metapackage output is the one that should have the track_feature entry.
+6. Another fly: We need to hotfix all prior python packages to add a dependency on
+the cpython mutex metapackage, or else the solver is free to combine old (c)python 
+builds with pypy.  This should be a non-disruptive change, as long as that mutex 
+metapackage is available. 
 
 ## Usage examples at runtime
 * using cpython will not change.  The new metapackages will fold in with the old "fat" 
