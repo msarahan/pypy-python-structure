@@ -1,0 +1,14 @@
+impl:
+  - cpython
+  - cpython
+  - cpython
+  - pypy
+version:
+  - 3.6
+  - 3.7
+  - 3.8
+  - 3.5
+zip_keys:
+  -
+    - impl
+    - version

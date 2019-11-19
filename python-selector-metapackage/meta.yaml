@@ -1,0 +1,28 @@
+package:
+  name: python-metapackage
+  version:  0
+
+outputs:
+  - name: python
+    version: {{ version }}
+    build:
+      string: {{ impl }}
+      track_features:
+        - python_pypy_impl
+    requirements:
+      run:
+        - cpython {{ version }}  # [impl == "cpython"]
+        - pypy {{ version }}  # [impl == "pypy"]
+  # things that link against a C runtime should use this to provide their python need.  It will insert the correct
+  #    implementation-specific runtime dependency for you.
+  - name: python-devel
+    version: {{ version }}
+    build:
+      string: {{ impl }}
+      track_features:
+        - python_pypy_devel_impl
+      run_exports:
+        - python {{ version }} {{ impl }}
+    requirements:
+      run:
+        - python {{ version }} {{ impl }}
